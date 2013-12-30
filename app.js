@@ -20,7 +20,6 @@ app.configure(function(){
 //连接监听
 io.on('connection', function (socket) {
 
-  socket.emit('connected to server');//通知客户端已连接
   console.log("connected");
 
   // 构造客户端对象
@@ -49,7 +48,7 @@ io.on('connection', function (socket) {
      }else{
 
         //如果不是第一次的连接，正常的聊天消息
-        obj['text']=msg;
+        res['text']=msg;
         console.log(client.nickname + ' say: ' + msg);
 
         // 返回消息

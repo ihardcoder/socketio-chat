@@ -1,6 +1,6 @@
 var content = $('#content');
 var status_txt = $('#status');
-var input = $('#input');
+var input_area = $('#input');
 var send_bt = $('#send_bt');
 var connect_bt = $('#connect_bt');
 
@@ -14,7 +14,7 @@ var myName = "";
 var firstconnect = true;
 
 //输入框“回车”提交
-input.keydown(function(e) {
+input_area.keydown(function(e) {
     if (e.keyCode === 13) {
       sendMsg();
     }
@@ -57,25 +57,25 @@ function connect(){
 
 
     //监听message事件，打印消息信息
-    socket.on('message',function(json){
+    socket.on('message',function(data){
         var p = document.createElement('p');
-        p.text = data.time + myName + "说：" + data.text;
+        p.innerHTML = data.time + myName + "说：" + data.text;
         content.prepend(p);
     });
 }
 
 function sendMsg(){
-        var msg = input.val();
-        if (!msg){
-            return
-        };
+    var msg = input_area.val();
+    if (!msg){
+        return
+    };
 
-        socket.send(msg);  //发送信息
+    socket.send(msg);  //发送信息
 
-        $(this).val('');   //清空输入框
+    input_area.val('');   //清空输入框
 
-        //如果是第一次连接，则设置昵称
-        if (firstconnect) {
-            myName = msg;
-        }
+    //如果是第一次连接，则设置昵称
+    if (firstconnect) {
+        myName = msg;
+    }
 }
