@@ -42,9 +42,9 @@ io.on('connection', function (socket) {
         res['text']=client.nickname;
         console.log(client.nickname + ' login');
 
-        //返回欢迎语
+        //欢迎事件反馈
         socket.emit('welcome',res);
-        //广播新用户已登陆
+        //大厅广播新用户加入
         socket.broadcast.emit('welcome',res);
      }else{
 
@@ -52,9 +52,9 @@ io.on('connection', function (socket) {
         obj['text']=msg;
         console.log(client.nickname + ' say: ' + msg);
 
-        // 返回消息（可以省略）
-        // socket.emit('message',res);
-        // 广播向其他用户发消息
+        // 返回消息
+        socket.emit('message',res);
+        // 大厅广播用户发出的消息
         socket.broadcast.emit('message',res);
       }
     });
@@ -63,11 +63,10 @@ io.on('connection', function (socket) {
     socket.on('disconnect', function () {  
       var res = {
         time:getTime(),
-        text:client.nickname,
-        type:'disconnect'
+        text:client.nickname
       };
 
-      // 广播用户已退出
+      // 大厅广播用户已退出
       socket.broadcast.emit('disconnect',res);
       console.log(client.nickname + 'Disconnect');
     });
