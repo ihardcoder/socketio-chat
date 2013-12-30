@@ -1,0 +1,4 @@
+1. 在项目目录下运行 npm install
+2. 运行start.bat
+3. 打开浏览器，链接localhost:3000(端口号可自行在源码中设定)
+4. enjoy
